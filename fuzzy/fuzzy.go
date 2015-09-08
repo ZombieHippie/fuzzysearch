@@ -109,8 +109,8 @@ func RankFindLevenshtein(source string, maxDistance int, targets []string) ranks
 	var r ranks
 	
 	for _, target := range targets {
-		distance := RankMatch(source, target)
-		if distance > -1 && distance <= maxDistance {
+		distance := LevenshteinDistance(source, target)
+		if distance <= maxDistance {
 			r = append(r, Rank{
 				Source:   source,
 				Target:   target,
