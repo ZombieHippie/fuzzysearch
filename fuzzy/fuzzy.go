@@ -102,6 +102,26 @@ func RankFind(source string, targets []string) ranks {
 	return r
 }
 
+// RankFindLevenshtein is similar to RankFind, except it will determine
+// approximate matches using Levenshtein distance also using maxDistance
+// as a filter
+func RankFindLevenshtein(source string, maxDistance int, targets []string) ranks {
+	var r ranks
+	
+	for _, target := range targets {
+		distance := RankMatch(source, target)
+		if distance <= maxDistance {
+			r = append(r, Rank{
+				Source:   source,
+				Target:   target,
+				Distance: distance,
+			})
+		}
+	}
+	
+	return r
+}
+
 type Rank struct {
 	// Source is used as the source for matching.
 	Source string
